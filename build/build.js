@@ -16,6 +16,7 @@ const spinner = ora(
 )
 spinner.start()
 
+//console.log(chalk.red(config.build.assetsRoot, config.build.assetsSubDirectory))
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {
