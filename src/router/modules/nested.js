@@ -1,7 +1,7 @@
 /** When your routing table is too long, you can split it into small modules**/
 
 import Layout from '@/views/layout/Layout'
-
+const menu1 = r => require.ensure([], () => r(require('@/views/nested/menu1/menu1-1')), 'menu1')
 const nestedRouter = {
   path: '/nested',
   component: Layout,
@@ -21,7 +21,8 @@ const nestedRouter = {
       children: [
         {
           path: 'menu1-1',
-          component: () => import('@/views/nested/menu1/menu1-1'),
+          // component: () => import('@/views/nested/menu1/menu1-1'),
+          component: menu1,
           name: 'Menu1-1',
           meta: { title: 'menu1-1' }
         },
