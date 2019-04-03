@@ -5,6 +5,7 @@
   "author": "Pan <panfree23@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start":"npm run dev",
     "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "sit": "cross-env NODE_ENV=production env_config=sit node build/build.js",
     "uat": "cross-env NODE_ENV=production env_config=uat node build/build.js",
