@@ -24,9 +24,10 @@ export default {
     if (!key || typeof (key) !== 'string') {
       return false
     }
+    expire = expire > 0 ? (Date.now() + expire) : 0
     const data = {
       value: value,
-      expire: Date.now() + Number(expire)
+      expire: expire
     }
     localStorage.setItem(key, JSON.stringify(data))
   },
