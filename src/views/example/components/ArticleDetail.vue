@@ -80,7 +80,7 @@ import Tinymce from '@/components/Tinymce'
 import Upload from '@/components/Upload/singleImage3'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
-import { validURL } from '@/utils/validate'
+import { isUrl } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
 import { userSearch } from '@/api/remoteSearch'
 import Warning from './Warning'
@@ -123,7 +123,7 @@ export default {
     }
     const validateSourceUri = (rule, value, callback) => {
       if (value) {
-        if (validURL(value)) {
+        if (isUrl(value)) {
           callback()
         } else {
           this.$message({

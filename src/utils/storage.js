@@ -3,7 +3,7 @@ export default {
    * 获取本地存储
    * @param {*} key
    */
-  get(key) {
+  getItem(key) {
     if (!key || typeof (key) !== 'string') {
       return null
     }
@@ -20,7 +20,7 @@ export default {
    * @param {存储值} value
    * @param {过期时间} expire
    */
-  set(key, value = '', expire = 0) {
+  setItem(key, value = '', expire = 0) {
     if (!key || typeof (key) !== 'string') {
       return false
     }
@@ -30,12 +30,13 @@ export default {
       expire: expire
     }
     localStorage.setItem(key, JSON.stringify(data))
+    return true
   },
   /**
    * 移除本地存储
    * @param {*} key
    */
-  remove(key) {
+  removeItem(key) {
     if (!key) {
       return false
     }
