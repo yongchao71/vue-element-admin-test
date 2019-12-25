@@ -76,6 +76,7 @@ export default {
   },
   computed: {
     routesData() {
+      console.log(' this.routes=========>>>', this.routes)
       return this.routes
     }
   },
@@ -161,6 +162,7 @@ export default {
       this.role = deepClone(scope.row)
       this.$nextTick(() => {
         const routes = this.generateRoutes(this.role.routes)
+        console.log('this.generateArr(routes)====', scope.row)
         this.$refs.tree.setCheckedNodes(this.generateArr(routes))
         // set checked state of a node not affects its father and child nodes
         this.checkStrictly = false
