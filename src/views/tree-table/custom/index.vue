@@ -62,7 +62,7 @@
           </el-button>
         </template>
         <template slot="operation" slot-scope="{scope}">
-          <el-button size="mini" type="success" @click="editItem(scope.row)">Edit</el-button>
+          <el-button size="mini" type="success" @click="editItem(scope.row)">Edit11</el-button>
           <el-button size="mini" type="danger" @click="deleteItem(scope.row)">Delete</el-button>
         </template>
       </tree-table>

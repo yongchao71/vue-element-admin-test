@@ -227,6 +227,7 @@ export default {
     },
     getRemoteUserList(query) {
       userSearch(query).then(response => {
+        console.log('response=====', response)
         if (!response.data.items) return
         this.userListOptions = response.data.items.map(v => v.name)
       })

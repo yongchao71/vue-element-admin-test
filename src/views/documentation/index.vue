@@ -55,6 +55,12 @@
             </template>
           </el-table-column>
           <el-table-column :label="'地址'" prop="address" />
+          <el-table-column :label="'操作'" width="220" align="center">
+            <template slot-scope="scope">
+              <el-button size="mini" type="success" @click="editItem(scope.row)">编辑</el-button>
+              <el-button size="mini" type="success" @click="deleteItem(scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </el-col>
     </el-row>
@@ -64,6 +70,12 @@
       </el-tag>
     </div>
     <div class="block">
+      <el-switch
+        v-model="showCheckbox"
+        active-color="#13ce66"
+        inactive-color="#ff4949"
+      />
+      <el-rate v-model="commentRate" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
       <el-radio-group v-model="radio">
         <el-radio :label="3">Option A</el-radio>
         <el-radio :label="6">Option B</el-radio>
@@ -96,23 +108,53 @@
       </el-col>
     </el-row>
 
+    <el-dialog :visible.sync="dialogFormVisible" title="编辑">
+      <el-form :model="tempItem" label-width="100px" style="width:600px">
+        <el-form-item label="Name">
+          <el-input v-model.trim="tempItem.name" placeholder="Name" />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="updateItem">Confirm</el-button>
+      </span>
+    </el-dialog>
+
+    <el-tooltip placement="top" content="tooltip">
+      <back-to-top :custom-style="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
+    </el-tooltip>
   </div>
 </template>
 <script>
 import clipboard from '@/directive/clipboard/index.js' // use clipboard by v-directive
+import BackToTop from '@/components/BackToTop'
 export default {
   name: 'Documentation',
   directives: {
     clipboard
   },
+  components: { BackToTop },
   data() {
     return {
+      myBackToTopStyle: {
+        right: '50px',
+        bottom: '50px',
+        width: '40px',
+        height: '40px',
+        'border-radius': '4px',
+        'line-height': '45px', // 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
+        background: '#e7eaf1'// 按钮的背景颜色 The background color of the button
+      },
       lang: '',
+      commentRate: 0,
+      showCheckbox: false,
+      dialogFormVisible: false,
       currentTime: Date.now(),
       selected: '',
       activeName: 'directly',
       tabBorderCard: 'CN',
       inputData: '复制的文字',
+      tempItem: {},
       options: [
         {
           value: '1',
@@ -180,6 +222,33 @@ export default {
       this.$message({
         message: '失败信息',
         type: 'error'
+      })
+    },
+    editItem(row) {
+      this.tempItem = Object.assign({}, row)
+      this.dialogFormVisible = true
+    },
+    deleteItem() {
+      this.$confirm('Confirm to remove the role?', 'Warning', {
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      })
+        .then(async() => {
+          this.$message({
+            type: 'success',
+            message: 'Delete succed!'
+          })
+        })
+        .catch(err => { console.log(err) })
+    },
+    async updateItem() {
+      this.dialogFormVisible = false
+      this.$notify({
+        title: '成功',
+        message: '更新成功',
+        type: 'success',
+        duration: 2000
       })
     }
   }
