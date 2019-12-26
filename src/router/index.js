@@ -360,6 +360,7 @@ export const asyncRoutes = [
   {
     path: '/i18n',
     component: Layout,
+    // alwaysShow: true,
     children: [
       {
         path: 'index',
@@ -368,6 +369,21 @@ export const asyncRoutes = [
         meta: { title: 'i18n', icon: 'international' }
       }
     ]
+  },
+  {
+    path: '/i18n11',
+    component: Layout,
+    alwaysShow: true,
+    name: 'i18n11',
+    meta: { title: 'i18n', icon: 'international' }
+    // children: [
+    //   {
+    //     path: 'index',
+    //     component: () => import('@/views/i18n-demo/index'),
+    //     name: 'I18n',
+    //     meta: { title: 'i18n', icon: 'international' }
+    //   }
+    // ]
   },
 
   {

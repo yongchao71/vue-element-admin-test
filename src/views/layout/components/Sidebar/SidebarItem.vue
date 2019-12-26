@@ -2,9 +2,12 @@
   <div v-if="!item.hidden" class="menu-wrapper">
 
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+      <!-- <template v-if="onlyBaseSideBar(item)"> -->
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="generateTitle(onlyOneChild.meta.title)" />
+          <!-- <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="basePath+'/'+onlyOneChild.path" /> -->
+          <!-- <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="basePath" /> -->
         </el-menu-item>
       </app-link>
     </template>
@@ -60,6 +63,18 @@ export default {
     return {}
   },
   methods: {
+    // only show base menu ,no children
+    onlyBaseSideBar(menuItem) {
+      const childItem = menuItem.children || []
+      const childFilter = childItem.filter(item => !item.hidden)
+      if (childFilter.length <= 0 || (childFilter.length === 1 && !menuItem.alwaysShow)) {
+        const onlyOneChild = childFilter[0] || menuItem
+        console.log('00---------->', this.basePath, onlyOneChild.path)
+        this.onlyOneChild = { ... onlyOneChild }
+        return true
+      }
+      return false
+    },
     hasOneShowingChild(children = [], parent) {
       const showingChildren = children.filter(item => {
         if (item.hidden) {
@@ -90,6 +105,7 @@ export default {
       }
       // console.log('path.resolve(this.basePath, routePath)======>>>', this.basePath, routePath, path.resolve(this.basePath, routePath))
       return path.resolve(this.basePath, routePath)
+      // return path.resolve(this.basePath, '')
     },
 
     generateTitle
