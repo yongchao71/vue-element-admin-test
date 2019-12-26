@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     linkProps(url) {
-      // console.log('url------->>>>', this.to, url)
       if (isExternal(url)) {
         return {
           is: 'a',

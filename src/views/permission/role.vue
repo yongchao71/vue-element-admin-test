@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     routesData() {
-      console.log(' this.routes=========>>>', this.routes)
+      // console.log(' this.routes=========>>>', this.routes)
       return this.routes
     }
   },
