@@ -38,8 +38,8 @@
         </div>
         <div class="block">
           <el-button :loading="true" style="margin-bottom:20px;" type="primary" icon="document">图标加载按钮</el-button>
-          <el-button class="item-btn" size="small" icon="el-icon-edit">常规按钮</el-button>
-          <el-button class="item-btn" size="small" type="primary" icon="el-icon-share">主要按钮</el-button>
+          <el-button class="item-btn" size="small" icon="el-icon-edit" @click="normalBtn">常规按钮</el-button>
+          <el-button class="item-btn" size="small" type="primary" icon="el-icon-share" @click="noticeBtn">主要按钮</el-button>
           <el-button class="item-btn" size="small" type="success" icon="el-icon-delete" @click="alertSuccess">成功按钮</el-button>
           <el-button class="item-btn" size="small" type="info" icon="el-icon-search">信息按钮</el-button>
           <el-button class="item-btn" size="small" type="warning">警告按钮 <i class="el-icon-upload el-icon-right" /></el-button>
@@ -202,6 +202,16 @@ export default {
   },
 
   methods: {
+    normalBtn() {
+      this.$notify({
+        title: '失败',
+        message: '更新失败',
+        type: 'error',
+        duration: 2000
+      })
+    },
+    noticeBtn() {
+    },
     // 文字复制
     clipboardSuccess() {
       this.$message({
